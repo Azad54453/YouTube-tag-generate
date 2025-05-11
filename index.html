@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="तेज़ और मुफ्त YouTube वीडियो डाउनलोडर - HD, MP4, MP3 में डाउनलोड करें।"/>
+  <meta name="keywords" content="YouTube डाउनलोडर, वीडियो डाउनलोड करें, MP4 डाउनलोड, MP3 डाउनलोड, मुफ्त YouTube वीडियो"/>
+  <meta name="author" content="आपका नाम" />
+  <title>YouTube वीडियो डाउनलोडर - मुफ्त और तेज़</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+    header { background: #e62117; color: white; padding: 1rem; text-align: center; }
+    .container { padding: 2rem; max-width: 600px; margin: auto; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input[type="url"] { width: 100%; padding: 0.75rem; font-size: 1rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 5px; }
+    button { padding: 0.75rem 2rem; font-size: 1rem; background: #e62117; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    .ads { margin: 2rem 0; text-align: center; }
+    footer { text-align: center; font-size: 0.8rem; color: #666; padding: 1rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>YouTube वीडियो डाउनलोडर</h1>
+    <p>मुफ्त में YouTube वीडियो MP4 या MP3 में डाउनलोड करें</p>
+  </header>
+  <div class="container">
+    <form id="downloadForm">
+      <input type="url" id="youtubeUrl" placeholder="YouTube वीडियो लिंक यहाँ पेस्ट करें..." required />
+      <button type="submit">डाउनलोड करें</button>
+    </form>
+    <div class="ads">
+      <!-- AdSense Slot 1 -->
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    <div id="result"></div>
+  </div>
+  <div class="ads">
+    <!-- AdSense Slot 2 -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+         data-ad-slot="0987654321"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <footer>&copy; 2025 आपका नाम | सभी अधिकार सुरक्षित</footer>
+  <script>
+    document.getElementById('downloadForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const url = document.getElementById('youtubeUrl').value;
+      const result = document.getElementById('result');
+      result.innerHTML = '<p>लोड हो रहा है...</p>';
+      fetch(`/api/download?url=${encodeURIComponent(url)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.error) {
+            result.innerHTML = `<p style="color:red;">त्रुटि: ${data.error}</p>`;
+          } else {
+            result.innerHTML = `<h3>${data.title}</h3><p>Channel: ${data.author}</p><a href="${data.download_url}" target="_blank"><button>डाउनलोड MP4</button></a>`;
+          }
+        })
+        .catch(err => {
+          result.innerHTML = `<p style="color:red;">सर्वर से कनेक्ट नहीं हो पाया</p>`;
+        });
+    });
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</body>
+</html>
